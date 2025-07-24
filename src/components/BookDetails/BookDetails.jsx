@@ -1,4 +1,5 @@
 import { useLoaderData, useParams } from "react-router-dom";
+import { addToReadList, addToWishList } from "../../utils/addToDb";
 
 const BookDetails = () => {
   const { bookId } = useParams();
@@ -19,6 +20,14 @@ const BookDetails = () => {
     publisher,
     yearOfPublishing,
   } = book || {};
+
+  function handleRead(id) {
+    addToReadList(id);
+  }
+
+  function handleWish(id) {
+    addToWishList(id);
+  }
 
   return (
     <div className="mt-20 lg:flex gap-10 space-y-5">
@@ -59,10 +68,16 @@ const BookDetails = () => {
           Rating: <span className="ml-4 font-bold ">{rating} / 5</span>
         </span>
         <div className="mt-10 flex gap-4">
-          <button className="btn text-lg font-medium text-gray-600 border-2 border-gray-400 rounded-md px-3 py-1">
+          <button
+            onClick={() => handleRead(bookId)}
+            className="btn text-lg font-medium text-gray-600 border-2 border-gray-400 rounded-md px-3 py-1"
+          >
             Read
           </button>
-          <button className="btn text-lg font-medium text-green-400 border-2 border-green-400 rounded-md px-3 py-1">
+          <button
+            onClick={() => handleWish(bookId)}
+            className="btn text-lg font-medium text-green-400 border-2 border-green-400 rounded-md px-3 py-1"
+          >
             Wish List
           </button>
         </div>
